@@ -1,0 +1,6 @@
+executable("socketer") {
+  sources = [ "main.cc" ]
+
+  deps = [
+  ]
+}

@@ -1,0 +1,3 @@
+set_default_toolchain("//build/toolchains:clang")
+cflags_cc = ["-std=c++17"]
+ldflags = ["-lboost_program_options"]
