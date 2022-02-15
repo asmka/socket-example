@@ -1,5 +1,5 @@
 group("src") {
   deps = [
-    "//src:socketer",
+    "//src:reader",
   ]
 }

@@ -1,5 +1,8 @@
-executable("socketer") {
-  sources = [ "main.cc" ]
+executable("reader") {
+  sources = [
+    "unixsocket.cc",
+    "reader.cc",
+  ]
 
   deps = [
   ]

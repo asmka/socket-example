@@ -1,3 +1,4 @@
+#include "unixsocket.h"
 #include <boost/program_options.hpp>
 #include <cstdlib>
 #include <exception>
@@ -6,7 +7,7 @@
 namespace po = boost::program_options;
 
 int main(int argc, char *argv[]) {
-  std::string socket{};
+  std::string sockpath{};
 
   // Command options
   po::options_description opt_desc("options");
@@ -27,30 +28,28 @@ int main(int argc, char *argv[]) {
       std::exit(EXIT_FAILURE);
     }
 
+    // -h --help option
     if (vm.count("help")) {
       std::cout << opt_desc << std::endl;
       exit(EXIT_SUCCESS);
     }
 
+    // Extract <sockpath> argument
     auto non_opts =
         po::collect_unrecognized(parsed.options, po::include_positional);
     if (non_opts.size() != 1) {
-      std::cout << "Usage: reader [options] <socket>" << std::endl;
+      std::cout << "Usage: reader [options] <sockpath>" << std::endl;
       exit(EXIT_FAILURE);
     }
-    socket = *(non_opts.begin());
-
-    std::cout << "socket: " << socket << std::endl;
+    sockpath = *(non_opts.begin());
   }
 
-  // try {
-  //   int sfd = createUnixStreamSocket();
-  //   bind(sfd,
-
-  // } catch (std::exception exc) {
-  //   std::cout << exc.what() << std::endl;
-  //   std::exit(EXIT_FAILURE);
-  // }
+  try {
+    int sfd = CreateUnixStreamSocket(sockpath);
+  } catch (std::exception &exc) {
+    std::cout << exc.what() << std::endl;
+    std::exit(EXIT_FAILURE);
+  }
 
   return 0;
 }
