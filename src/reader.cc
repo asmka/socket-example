@@ -1,5 +1,5 @@
-#include "streamutil.h"
-#include "unixsock.h"
+#include "./socket/streamutil.h"
+#include "./socket/unixsock.h"
 #include <boost/program_options.hpp>
 #include <cstdlib>
 #include <exception>

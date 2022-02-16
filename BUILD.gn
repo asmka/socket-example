@@ -1,4 +1,4 @@
-group("src") {
+group("commands") {
   deps = [
     "//src:reader",
     "//src:writer",

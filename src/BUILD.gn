@@ -1,8 +1,8 @@
 executable("reader") {
   sources = [
     "reader.cc",
-    "unixsock.cc",
-    "streamutil.cc",
+    "socket/unixsock.cc",
+    "socket/streamutil.cc",
   ]
 
   deps = [
@@ -12,8 +12,8 @@ executable("reader") {
 executable("writer") {
   sources = [
     "writer.cc",
-    "unixsock.cc",
-    "streamutil.cc",
+    "socket/unixsock.cc",
+    "socket/streamutil.cc",
   ]
 
   deps = [
