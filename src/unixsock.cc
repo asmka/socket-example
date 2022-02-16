@@ -21,8 +21,7 @@ int CreateUnixStreamSocket() {
 
 void BindUnixSocket(const int sockfd, const std::string &sockpath) {
   // Bind
-  struct sockaddr_un addr;
-  memset(&addr, 0, sizeof(sockaddr_un));
+  struct sockaddr_un addr {};
   addr.sun_family = AF_UNIX;
   strncpy(addr.sun_path, sockpath.c_str(), sizeof(addr.sun_path) - 1);
 

@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
   opt_desc.add_options()("help,h", "show this help message");
 
   po::positional_options_description pos_desc;
-  pos_desc.add("socket", 1);
+  pos_desc.add("sockpath", 1);
 
   // Verify
   {
@@ -47,9 +47,13 @@ int main(int argc, char *argv[]) {
 
   // Main process
   try {
-    int sockfd = CreateUnixStreamSocket();
-    BindUnixSocket(sockfd, sockpath);
-    ListenSocket(sockfd, 1);
+    int rcpt_sfd = CreateUnixStreamSocket();
+    BindUnixSocket(rcpt_sfd, sockpath);
+    ListenSocket(rcpt_sfd, 1);
+    std::cerr << "Connecting..." << std::endl; // DEBUG
+    int conn_sfd = AcceptSocket(rcpt_sfd);
+    std::cerr << "Connected." << std::endl; // DEBUG
+    close(conn_sfd);
   } catch (std::exception &exc) {
     std::cout << exc.what() << std::endl;
     std::exit(EXIT_FAILURE);
