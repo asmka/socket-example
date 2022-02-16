@@ -19,7 +19,7 @@ int CreateUnixStreamSocket() {
   return sockfd;
 }
 
-void BindUnixSocket(const int sockfd, const std::string sockpath) {
+void BindUnixSocket(const int sockfd, const std::string &sockpath) {
   // Bind
   struct sockaddr_un addr;
   memset(&addr, 0, sizeof(sockaddr_un));

@@ -1,1 +1,1 @@
-void ListenSocket(const int sockfd);
+void ListenSocket(int sockfd, int backlog);

@@ -49,7 +49,7 @@ int main(int argc, char *argv[]) {
   try {
     int sockfd = CreateUnixStreamSocket();
     BindUnixSocket(sockfd, sockpath);
-    ListenSocket(sockfd);
+    ListenSocket(sockfd, 1);
   } catch (std::exception &exc) {
     std::cout << exc.what() << std::endl;
     std::exit(EXIT_FAILURE);

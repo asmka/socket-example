@@ -1,4 +1,4 @@
 #include <string>
 
 int CreateUnixStreamSocket();
-void BindUnixSocket(const int sockfd, const std::string sockpath);
+void BindUnixSocket(int sockfd, const std::string &sockpath);
