@@ -9,6 +9,7 @@ namespace po = boost::program_options;
 
 int main(int argc, char *argv[]) {
   std::string sockpath{};
+  std::string senddata{};
 
   // Parse arguments
   {
@@ -18,6 +19,7 @@ int main(int argc, char *argv[]) {
 
     po::positional_options_description pos_desc;
     pos_desc.add("sockpath", 1);
+    pos_desc.add("senddata", 1);
 
     // Verify
     po::variables_map vm;
@@ -36,23 +38,24 @@ int main(int argc, char *argv[]) {
       exit(EXIT_SUCCESS);
     }
 
-    // Extract <sockpath> argument
+    // Extract <sockpath> <senddata> argument
     auto non_opts =
         po::collect_unrecognized(parsed.options, po::include_positional);
-    if (non_opts.size() != 1) {
+    if (non_opts.size() != 2) {
       const std::string cmd{argv[0]};
-      std::cout << "Usage: " << cmd << " [options] <sockpath>" << std::endl;
+      std::cout << "Usage: " << cmd << " [options] <sockpath> <senddata>"
+                << std::endl;
       exit(EXIT_FAILURE);
     }
-    sockpath = *(non_opts.begin());
+    sockpath = non_opts[0];
+    senddata = non_opts[1];
   }
 
   // Main processing
   try {
     int sockfd = CreateUnixStreamSocket();
-    std::cerr << "Connecting..." << std::endl; // DEBUG
     ConnectSocket(sockfd, sockpath);
-    std::cerr << "Connected." << std::endl; // DEBUG
+    write(sockfd, senddata.c_str(), senddata.size());
     close(sockfd);
   } catch (std::exception &exc) {
     std::cout << exc.what() << std::endl;
