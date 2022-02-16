@@ -49,13 +49,11 @@ int main(int argc, char *argv[]) {
 
   // Main processing
   try {
-    int rcpt_sfd = CreateUnixStreamSocket();
-    BindUnixSocket(rcpt_sfd, sockpath);
-    ListenSocket(rcpt_sfd, 1);
+    int sockfd = CreateUnixStreamSocket();
     std::cerr << "Connecting..." << std::endl; // DEBUG
-    int conn_sfd = AcceptSocket(rcpt_sfd);
+    ConnectSocket(sockfd, sockpath);
     std::cerr << "Connected." << std::endl; // DEBUG
-    close(conn_sfd);
+    close(sockfd);
   } catch (std::exception &exc) {
     std::cout << exc.what() << std::endl;
     std::exit(EXIT_FAILURE);

@@ -8,3 +8,14 @@ executable("reader") {
   deps = [
   ]
 }
+
+executable("writer") {
+  sources = [
+    "writer.cc",
+    "unixsock.cc",
+    "streamutil.cc",
+  ]
+
+  deps = [
+  ]
+}
