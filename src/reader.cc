@@ -1,4 +1,5 @@
-#include "unixsocket.h"
+#include "streamutil.h"
+#include "unixsock.h"
 #include <boost/program_options.hpp>
 #include <cstdlib>
 #include <exception>
@@ -44,8 +45,11 @@ int main(int argc, char *argv[]) {
     sockpath = *(non_opts.begin());
   }
 
+  // Main process
   try {
-    int sfd = CreateUnixStreamSocket(sockpath);
+    int sockfd = CreateUnixStreamSocket();
+    BindUnixSocket(sockfd, sockpath);
+    ListenSocket(sockfd);
   } catch (std::exception &exc) {
     std::cout << exc.what() << std::endl;
     std::exit(EXIT_FAILURE);

@@ -1,7 +1,8 @@
 executable("reader") {
   sources = [
-    "unixsocket.cc",
     "reader.cc",
+    "unixsock.cc",
+    "streamutil.cc",
   ]
 
   deps = [
